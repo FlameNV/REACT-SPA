@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {fontSize} from "../../constants/constants";
+import {fontSize} from "../../../constants/constants";
 import Icon from "@ant-design/icons";
 
 export const FooterWrapper = styled.footer`

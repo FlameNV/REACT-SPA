@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {fontSize} from "../../constants/constants";
+import {fontSize} from "../../../constants/constants";
 
 const HeaderWrapper = styled.div`
     display: flex;
