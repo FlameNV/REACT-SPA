@@ -34,14 +34,14 @@ export const InfoTitle = styled.div`
 
 export const CarsWrapper = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     margin-top: 60px;
     width: 90%;
-    height: 450px;
 `;
 
 export const StyledCardComponents = styled.div`
-    height: 120px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -50,7 +50,8 @@ export const StyledCardComponents = styled.div`
 
 export const StyledCard = styled(Card)`
     width: 340px;
-    height: 400px;
+    height: 420px;
     border-radius: 20px;
     background-color: #ececec;
+  margin: 0 auto 20px 0;
 `;

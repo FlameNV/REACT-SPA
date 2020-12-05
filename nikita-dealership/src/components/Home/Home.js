@@ -1,30 +1,14 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {HomeWrapper, CarsWrapper, InfoTitle, StyledCard, StyledCardComponents} from "./Home.styled";
 import {Button, Card} from "antd";
 import 'antd/dist/antd.css'
+import MyContext from "../../context";
+import {NavLink} from "react-router-dom";
 
 const Home = () => {
-    let data = [
-        {
-            name: "Audi RS6 Avant",
-            description: "Ultra fast car with 600 horse power",
-            priceInUSD: 80000,
-            imageSrc: "https://autoua.net/media/uploads/audi/audi-rs-6-avant-2019.jpg"
-        },
-        {
-            name: "Tesla Model S",
-            description: "Faster electric car ever",
-            priceInUSD: 45000,
-            imageSrc: "https://www.ixbt.com/img/n1/news/2020/9/2/Tesla-Model_S_large.jpg"
-        },
-        {
-            name: "BMW M3",
-            description: "Car for everyone",
-            priceInUSD: 40000,
-            imageSrc: "https://cdn.motor1.com/images/mgl/EMNGz/s1/bmw-m3-rndering.jpg"
-        }
-    ];
+    const {data} = useContext(MyContext);
     const {Meta} = Card;
+    const [countOfElements, setCountOfElements] = useState(3);
     return (
         <HomeWrapper>
             <InfoTitle>
@@ -32,22 +16,31 @@ const Home = () => {
                 <p>Our dealership cooperates with brands such as:<br/> Audi, Tesla, BMW, Mercedes, Ford, Toyota, VW</p>
             </InfoTitle>
             <CarsWrapper>
-                {
-                    data.map(({imageSrc, name, description, priceInUSD}, idx) => (
-                            <StyledCard hoverable cover={<img alt="example" src={imageSrc}/>} id={idx}>
-                                <StyledCardComponents>
-                                    <Meta idx={idx}/>
-                                    {name}<br/>
-                                    Description: {description}<br/>
-                                    Price: {priceInUSD}$
-                                    <Button type="primary">More</Button>
-                                </StyledCardComponents>
-                            </StyledCard>
-                        )
+                {Object.values(data).slice(0, countOfElements).map(({
+                                                                        imageSrc,
+                                                                        name,
+                                                                        description,
+                                                                        horsePower,
+                                                                        priceInUSD,
+                                                                        id
+                                                                    }) => (
+                        <StyledCard hoverable cover={<img alt="example" src={imageSrc}/>} key={id}>
+                            <StyledCardComponents>
+                                <Meta id={id}/>
+                                {name}<br/>
+                                Description: {description}<br/>
+                                Horse power: {horsePower}<br/>
+                                Price: {priceInUSD}$
+                                <NavLink to={"/item/" + id}>
+                                    <Button block type="primary">More</Button>
+                                </NavLink>
+                            </StyledCardComponents>
+                        </StyledCard>
                     )
+                )
                 }
             </CarsWrapper>
-            <Button>View More</Button>
+            <Button style={{marginBottom: '20px'}} onClick={() => setCountOfElements(countOfElements + 20)}>View More</Button>
         </HomeWrapper>
     );
 };
