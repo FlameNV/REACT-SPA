@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import MyContext from "../../../../context";
 
 const Item = (props) => {
-    const {dataArr} = useContext(MyContext);
+    const {data} = useContext(MyContext);
     const {Meta} = Card;
     return (
         <ItemWrapper hoverable bodyStyle={{padding: 0}}>
@@ -20,7 +20,7 @@ const Item = (props) => {
             </ItemContent>
 
             <ButtonWrapper>
-                <NavLink exact to={"/item/" + props.id}>
+                <NavLink exact to={"/car/" + props.id}>
                     <Button block type="primary" size={'large'}>More</Button>
                 </NavLink>
             </ButtonWrapper>
