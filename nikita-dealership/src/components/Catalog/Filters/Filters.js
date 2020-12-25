@@ -6,27 +6,51 @@ import API from "../../../APImanager/apimanager"
 
 const {Option} = Select;
 
+const options = [
+    {key: 1, text: "Choice 1", value: 1},
+    {key: 2, text: "Choice 2", value: 2},
+];
+
 const Filters = () => {
-    const {updataArr} = useContext(MyContext);
+    const {updataArr, sortArr} = useContext(MyContext);
 
     const [optionValue, setOptionValue] = useState("");
     const [searchValue, setSearchValue] = useState("");
     const [priceRangeValue, setPriceRangeValue] = useState([0, 100000]);
 
+    const getComparator = (optionValue) => {
+        let comparator;
+        if (optionValue == "name") {
+            comparator = (a, b) => {
+                if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            };
+        } else if (optionValue == "horsePower") {
+            comparator = (a, b) => {
+                return b.horsePower - a.horsePower;
+            };
+        }
+        return comparator;
+    };
+
     const load = () => {
         async function getData() {
-            let userData = await API.get(
-                "/car?min=" +
-                priceRangeValue[0] +
-                "&max=" +
-                priceRangeValue[1] +
-                "&sortBy=" +
-                optionValue
-            );
+            let userData = await API.get("/car");
             let arr = userData.data.filter(
                 (item) =>
-                    item.name.toLowerCase().includes(searchValue));
+                    item.name.toLowerCase().includes(searchValue) &&
+                    item.priceInUSD >= priceRangeValue[0] &&
+                    item.priceInUSD <= priceRangeValue[1]
+            )
             updataArr(arr);
+            let comparator;
+            if (optionValue != undefined) {
+                let comparator = getComparator(optionValue);
+                sortArr(arr, comparator);
+            }
             console.log(userData);
         }
 

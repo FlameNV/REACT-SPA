@@ -7,6 +7,8 @@ import Home from "../Home/Home";
 import Catalog from "../Catalog/Catalog";
 import MyContext from "../../context";
 import ItemPage from "../ItemPage/ItemPage";
+import Cart from "../Cart/Cart";
+import {GlobalContextProvider} from "../../Redux/provider";
 
 class App extends React.Component {
     constructor(props) {
@@ -18,15 +20,23 @@ class App extends React.Component {
             }));
         };
 
+        this.sortArr = (arr, compareFunc) => {
+            this.setState(() => ({
+                data: arr.sort(compareFunc)
+            }));
+        };
+
         this.state = {
             data: [],
-            updataArr: this.updataArr
+            updataArr: this.updataArr,
+            sortArr: this.sortArr,
         };
     }
 
     render() {
         return (
             <Router>
+                <GlobalContextProvider>
                 <MyContext.Provider value={this.state}>
                     <AppWrapper>
                         <Header/>
@@ -35,7 +45,7 @@ class App extends React.Component {
                                 <Catalog/>
                             </Route>
                             <Route path="/cart">
-                                <h3>Items</h3>
+                                <Cart/>
                             </Route>
                             <Route path="/item/:id">
                                 <ItemPage/>
@@ -47,6 +57,7 @@ class App extends React.Component {
                         <Footer/>
                     </AppWrapper>
                 </MyContext.Provider>
+                </GlobalContextProvider>
             </Router>
         );
     }

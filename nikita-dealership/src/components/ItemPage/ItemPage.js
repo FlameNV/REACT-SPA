@@ -13,10 +13,13 @@ import car from "../../images/car.png";
 import API from "../../APImanager/apimanager";
 import {Spin} from "antd";
 import {SpinBlock} from "../App/App.styled";
+import {addToCart} from "../../Redux/reducers"
+import {useDispatch} from "react-redux";
 
 const ItemPage = () => {
     const {id} = useParams();
     const [datta, setDatta] = useState(undefined);
+    const dispatch = useDispatch();
 
     const load = () => {
         async function getData() {
@@ -26,7 +29,7 @@ const ItemPage = () => {
         }
         setTimeout(() => {
             getData();
-        }, 1000);
+        }, 0);
     };
 
     useEffect(load, []);
@@ -37,6 +40,10 @@ const ItemPage = () => {
                 <Spin size="large"/>
             </SpinBlock>
         )
+    }
+
+    const cardClickAdd = () => {
+        dispatch(addToCart({element: datta, quantity: 1}));
     }
 
     return (
@@ -58,7 +65,7 @@ const ItemPage = () => {
                     <BuyInfo>
                         <div>Price: {datta.priceInUSD}$</div>
                         <div>
-                            <StyledBuyButton type="primary">Add to cart</StyledBuyButton>
+                            <StyledBuyButton type="primary" onClick={cardClickAdd}>Add to cart</StyledBuyButton>
                         </div>
                     </BuyInfo>
                 </React.Fragment>

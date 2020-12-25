@@ -1,12 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import {NavLink} from "react-router-dom";
 import {ButtonWrapper, ItemContent, ItemImage, ItemName, ItemWrapper} from "./Item.styled";
 import {Card, Button} from "antd";
 import 'antd/dist/antd.css';
-import MyContext from "../../../../context";
 
 const Item = (props) => {
-    const {data} = useContext(MyContext);
     const {Meta} = Card;
     return (
         <ItemWrapper hoverable bodyStyle={{padding: 0}}>
@@ -20,7 +18,7 @@ const Item = (props) => {
             </ItemContent>
 
             <ButtonWrapper>
-                <NavLink exact to={"/car/" + props.id}>
+                <NavLink exact to={"/item/" + props.id}>
                     <Button block type="primary" size={'large'}>More</Button>
                 </NavLink>
             </ButtonWrapper>
