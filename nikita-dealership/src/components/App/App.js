@@ -9,6 +9,8 @@ import MyContext from "../../context";
 import ItemPage from "../ItemPage/ItemPage";
 import Cart from "../Cart/Cart";
 import {GlobalContextProvider} from "../../Redux/provider";
+import CartForm from "../Purchase/CartForm/CartForm";
+import Success from "../Purchase/Success/Success";
 
 class App extends React.Component {
     constructor(props) {
@@ -46,6 +48,12 @@ class App extends React.Component {
                             </Route>
                             <Route path="/cart">
                                 <Cart/>
+                            </Route>
+                            <Route path="/cart-form">
+                                <CartForm/>
+                            </Route>
+                            <Route path="/success">
+                                <Success/>
                             </Route>
                             <Route path="/item/:id">
                                 <ItemPage/>

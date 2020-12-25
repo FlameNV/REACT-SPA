@@ -25,7 +25,9 @@ const Cart = () => {
                     <StyledButton>Back to catalog</StyledButton>
                 </NavLink>
                 Total price: $ {totalPrice}
-                <StyledButton type="primary">Continue</StyledButton>
+                <NavLink exact to="/cart-form">
+                    <StyledButton type="primary">Continue</StyledButton>
+                </NavLink>
             </CartButtons>
         </StyledCart>
     );
